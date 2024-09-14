@@ -1,10 +1,80 @@
-import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+
+import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { addUser, removeUser } from "../utils/userSlice";
+import { auth } from '../utils/firebase';
+import { checkValidEmail, checkValidPassword } from '../utils/validate';
 import { BG_IMG_URL, LOGO_URL } from '../utils/constants';
 
 const Home = () => {
   
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+
+    onAuthStateChanged(auth, (user) => {
+      
+      if (user) {
+        const { uid, email, displayName, photoURL, phoneNumber, providerData } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL, phoneNumber: phoneNumber, providerData: providerData }));
+        navigate('/browse');
+      }
+
+      else {
+
+        dispatch(removeUser());
+
+        if (window.location.pathname === '/browse') navigate('/login');
+      }
+    });
+
+  }, [dispatch, navigate]);
+
+  const [em, setEm] = useState(null);
+  const [successMsg, setSuccessMsg] = useState(null);
+  const [errMsg, setErrMsg] = useState(null);
+
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleEmail = () => {
+
+    const message = checkValidEmail(email.current.value);
+    setErrMsg(message);
+
+    if(message !== null) return;
+
+    setEm(email.current.value);
+    email.current.value = '';
+  }
+
+  const handlePassword = () => {
+    
+    const message = checkValidPassword(password.current.value);
+    setErrMsg(message);
+
+    if(message !== null) return;
+
+    createUserWithEmailAndPassword(auth, em, password.current.value)
+      
+      .then((userCredential) => {
+      
+        const user = userCredential.user;
+        setErrMsg(null);
+        setSuccessMsg("🎉 You're in! Welcome to endless entertainment and epic binge sessions! 🍿");
+      })
+
+      .catch((error) => {
+        setSuccessMsg(null);
+        setErrMsg(error.code + "-" + error.message);
+      });
+
+    password.current.value = '';
+  }
   
   return (
 
@@ -34,22 +104,33 @@ const Home = () => {
 
         <div className="text-4xl font-bold m-4 p-4">Unlimited movies, TV shows and more...</div>
         <div className="text-lg font-bold m-2 p-2">Starts at ₹149. Cancel anytime.</div>
-        <div className="text-lg font-bold m-2 p-2">Ready to watch? Enter your email to create or restart your membership.</div>
+        
+        <div className="text-lg font-bold m-2 p-2">
+          {(em !==null)? "Enter your password and you'll be watching in no time." 
+            : "Ready to watch? Enter your email to create or restart your membership."}
+        </div>
 
-        <form className="flex items-center">
+        <form onSubmit={(e) => e.preventDefault()} className="flex items-center">
 
-          <input 
+          <input
+            ref= {(em !==null)? password : email}
             className="w-[400px] h-14  bg-transparent m-[10px] p-[15px] border border-[#acacac] rounded-[3px] caret-white text-white text-[15px] placeholder-[#bababa]"
-            type="text" 
-            placeholder="Email address">
+            type={(em !==null)? "password" : "email"}
+            placeholder={(em !==null)? "Enter your password" : "Email address"}>
           </input>
-
-          <button className="flex items-center justify-center w-[250px] h-14 bg-red-500 hover:bg-red-700 m-[10px] text-2xl font-semibold rounded-[3px] cursor-pointer">
-              <span>Get started</span>
+          
+          <button 
+            className="flex items-center justify-center w-[250px] h-14 bg-red-500 hover:bg-red-700 m-[10px] text-2xl font-semibold rounded-[3px] cursor-pointer"
+            onClick={em !== null ? handlePassword : handleEmail}
+          >
+              <span>{(em !==null)? "Next" : "Get started"}</span>
               <span className="ml-3 text-xl" dangerouslySetInnerHTML={{ __html: '&#10095;' }}/>
           </button>
 
         </form>
+
+        {successMsg && <div className="w-full flex justify-start text-green-500 px-8 font-semibold">{successMsg}</div>}
+        {errMsg && <div className="w-full flex justify-start text-red-500 px-8 font-semibold">{errMsg}</div>}
 
       </div>
 

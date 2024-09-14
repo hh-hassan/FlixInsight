@@ -1,10 +1,46 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../utils/firebase';
+import { checkValidEmail, checkValidPassword } from '../utils/validate';
 import { BG_IMG_URL, LOGO_URL } from '../utils/constants';
 
 const Login = () => {
   
     const navigate = useNavigate();
+
+    const email = useRef(null);
+    const password = useRef(null);
+
+    const [emailMsg, setEmailMsg] = useState(null);
+    const [passMsg, setPassMsg] = useState(null);
+
+    const [successMsg, setSuccessMsg] = useState(null);
+    const [errMsg, setErrMsg] = useState(null);
+
+    const handleClick = () => {
+        
+        const message_Email = checkValidEmail(email.current.value);
+        setEmailMsg(message_Email);
+
+        const message_Password = checkValidPassword(password.current.value);
+        setPassMsg(message_Password);
+
+        if(message_Email !== null || message_Password) return;
+
+        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+
+            .then((userCredential) => {
+                const user = userCredential.user;
+                setErrMsg(null);
+                setSuccessMsg("🎉 You're all set! Time to binge and chill! 🍿");
+            })
+
+            .catch((error) => {
+                setSuccessMsg(null);
+                setErrMsg(error.code + "-" + error.message);
+            });
+    };
     
     return (
         
@@ -23,26 +59,35 @@ const Login = () => {
                     alt="">
                 </img>
             </Link>
-            
-            <form className="absolute bottom-[5px] flex flex-col items-center p-[10px] text-white bg-black/70">
+
+            <form onSubmit={(e) => e.preventDefault()} className="absolute bottom-[5px] flex flex-col items-center p-[10px] text-white bg-black/70">
 
                 <div className="w-full flex justify-start m-[10px] text-3xl font-bold">Sign In</div>
 
                 <input 
+                    ref={email}
                     className="w-[315px] h-[55px] bg-black/50 m-[10px] p-[15px] border border-[#acacac] rounded-[3px] caret-white text-white text-[15px] placeholder-[#bababa]"
-                    type="text" 
+                    type="email" 
                     placeholder="Email or mobile number">
                 </input>
+
+                {emailMsg && <div className="w-full flex justify-start text-red-500 px-8 font-semibold">{emailMsg}</div>}
                 
                 <input 
+                    ref={password}
                     className="w-[315px] h-[55px] bg-black/50 m-[10px] p-[15px] border border-[#acacac] rounded-[3px] caret-white text-white text-[15px] placeholder-[#bababa]"
-                    type="text" 
+                    type="password" 
                     placeholder="Password">
                 </input>
 
-                <div className="flex justify-center items-center w-[315px] h-[45px] bg-red-500 hover:bg-red-700 m-[10px] p-[5px] font-semibold rounded-[3px] cursor-pointer">
+                {passMsg && <div className="w-full flex justify-start text-red-500 px-8 font-semibold">{passMsg}</div>}
+
+                <div onClick={handleClick} className="flex justify-center items-center w-[315px] h-[45px] bg-red-500 hover:bg-red-700 m-[10px] p-[5px] font-semibold rounded-[3px] cursor-pointer">
                     Sign In
                 </div>
+
+                {successMsg && <div className="text-green-500 px-10 font-semibold">{successMsg}</div>}
+                {errMsg && <div className="text-red-500 px-8 font-semibold">{errMsg}</div>}
 
                 <div>OR</div>
 

@@ -1,9 +1,12 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Browse from "./components/Browse";
+
+import appStore from "./utils/appStore";
 
 const App = () => {
   
@@ -27,9 +30,13 @@ const App = () => {
   ]);
   
   return (
-    <div className="App">
-      <RouterProvider router={appRouter} />
-    </div>
+
+    <Provider store={appStore}>
+      <div className="App">
+        <RouterProvider router={appRouter} />
+      </div>
+    </Provider>
+    
   );
 }
 
