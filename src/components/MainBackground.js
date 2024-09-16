@@ -31,9 +31,9 @@ const MainBackground = () => {
       
       <div>
 
-        <div className="absolute w-screen h-screen bg-gradient-to-r from-black z-10">
+        <div className="absolute w-screen h-screen bg-gradient-to-t from-black  z-20">
 
-          <div className="absolute top-52 left-10 w-1/3 text-white z-20">
+          <div className="absolute top-52 left-10 w-1/3 text-white z-30">
             
             <div className="m-2 text-2xl font-bold">{title}</div>
             
@@ -41,7 +41,7 @@ const MainBackground = () => {
             
             <div className="flex text-xl font-bold">
 
-              <button className="flex items-center bg-white m-2 px-7 py-1.5 text-black rounded hover:bg-opacity-80">
+              <button className="flex items-center bg-white m-2 px-7 py-1.5 text-black rounded hover:bg-opacity-30">
                 <span className="mr-2 text-2xl">&#9654;</span>
                 <span>Play</span>
               </button>
@@ -65,7 +65,7 @@ const MainBackground = () => {
             <div className="absolute w-screen h-screen overflow-hidden">
 
               <iframe
-                className = "absolute w-[calc(100%+0px)] h-[calc(100%+20px)] transform scale-[1.3] translate-x-[-0px] translate-y-[-10px]" 
+                className = "absolute w-[calc(100%+0px)] h-[calc(100%+20px)] transform scale-[1.3] translate-x-[-0px] translate-y-[-10px] z-10" 
                 src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&controls=0&mute=1&rel=0&modestbranding=1&fs=1&iv_load_policy=3&vq=hd1080`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

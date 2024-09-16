@@ -34,5 +34,16 @@ export const API_OPTIONS =
         },
     };
 
+export const MOVIES_URL =
+    "https://api.themoviedb.org/3/movie/";
+
+export const BASE_URL =
+    "https://image.tmdb.org/t/p/w780";
+
+
+
+
+
+
 export const SITE_SPINNER =
     "https://assets.nflxext.com/en_us/pages/wiplayer/site-spinner.png";

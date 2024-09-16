@@ -25,7 +25,7 @@ const BrowseHeader = () => {
     
     return (
 
-        <div className="absolute flex justify-between w-screen px-10 py-2 text-white bg-gradient-to-b from-black z-20">
+        <div className="absolute flex justify-between w-screen px-10 py-2 text-white bg-gradient-to-b from-black z-30">
         
             <div className="flex justify-between">
                 
@@ -148,4 +148,4 @@ const BrowseHeader = () => {
   )
 }
 
-export default BrowseHeader
+export default BrowseHeader;

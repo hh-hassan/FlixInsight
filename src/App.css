@@ -7,8 +7,6 @@
     padding: 0;
 }
 
-.custom-pt-screen {
-    position: relative;
-    padding-top: 100vh; /* or your desired value */
-    box-sizing: border-box; /* Ensure padding doesn’t affect the width */
-  }
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
