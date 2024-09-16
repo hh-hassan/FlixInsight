@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../utils/firebase';
 import { signOut } from "firebase/auth";
-import { BG_IMG_URL, LOGO_URL, SEARCH_PATH, NOTIF_PATH, EMOJI_ICON, MANAGE_ICON, TRANSFER_ICON, ACCOUNT_ICON, HELP_ICON } from '../utils/constants';
+import { auth } from '../utils/firebase';
+import { LOGO_URL, SEARCH_PATH, NOTIF_PATH, EMOJI_ICON, MANAGE_ICON, TRANSFER_ICON, ACCOUNT_ICON, HELP_ICON } from '../utils/constants';
 
 const BrowseHeader = () => {
   
@@ -24,16 +24,8 @@ const BrowseHeader = () => {
     };
     
     return (
-    
-    <div>
 
-        <img 
-            className="fixed top-0 left-0 w-screen h-screen object-cover -z-10 brightness-[40%]" 
-            src={BG_IMG_URL} 
-            alt="">
-        </img>
-
-        <div className="flex justify-between px-10 py-2 text-white bg-gradient-to-b from-black">
+        <div className="absolute flex justify-between w-screen px-10 py-2 text-white bg-gradient-to-b from-black z-20">
         
             <div className="flex justify-between">
                 
@@ -153,9 +145,6 @@ const BrowseHeader = () => {
             </div>
 
         </div>
-
-    </div>
-
   )
 }
 

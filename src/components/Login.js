@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Authentication from './Authentication';
 import { auth } from '../utils/firebase';
 import { checkValidEmail, checkValidPassword } from '../utils/validate';
 import { BG_IMG_URL, LOGO_URL } from '../utils/constants';
@@ -46,6 +47,8 @@ const Login = () => {
         
         <div className="flex flex-col items-center">
             
+            <Authentication/>
+            
             <img 
                 className="fixed top-0 left-0 w-screen h-screen object-cover -z-10 brightness-[40%]" 
                 src={BG_IMG_URL} 
@@ -86,7 +89,7 @@ const Login = () => {
                     Sign In
                 </div>
 
-                {successMsg && <div className="text-green-500 px-10 font-semibold">{successMsg}</div>}
+                {/* {successMsg && <div className="text-green-500 px-10 font-semibold">{successMsg}</div>} */}
                 {errMsg && <div className="text-red-500 px-8 font-semibold">{errMsg}</div>}
 
                 <div>OR</div>

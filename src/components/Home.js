@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import Authentication from './Authentication';
 
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { addUser, removeUser } from "../utils/userSlice";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import { auth } from '../utils/firebase';
 import { checkValidEmail, checkValidPassword } from '../utils/validate';
 import { BG_IMG_URL, LOGO_URL } from '../utils/constants';
@@ -11,28 +11,6 @@ import { BG_IMG_URL, LOGO_URL } from '../utils/constants';
 const Home = () => {
   
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-
-    onAuthStateChanged(auth, (user) => {
-      
-      if (user) {
-        const { uid, email, displayName, photoURL, phoneNumber, providerData } = user;
-        dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL, phoneNumber: phoneNumber, providerData: providerData }));
-        navigate('/browse');
-      }
-
-      else {
-
-        dispatch(removeUser());
-
-        if (window.location.pathname === '/browse') navigate('/login');
-      }
-    });
-
-  }, [dispatch, navigate]);
 
   const [em, setEm] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
@@ -80,6 +58,8 @@ const Home = () => {
 
     <div className="flex flex-col items-center">
             
+      <Authentication/>
+      
       <img 
         className="fixed top-0 left-0 w-screen h-screen object-cover -z-10 brightness-[30%]" 
         src={BG_IMG_URL} 
@@ -129,7 +109,7 @@ const Home = () => {
 
         </form>
 
-        {successMsg && <div className="w-full flex justify-start text-green-500 px-8 font-semibold">{successMsg}</div>}
+        {/* {successMsg && <div className="w-full flex justify-start text-green-500 px-8 font-semibold">{successMsg}</div>} */}
         {errMsg && <div className="w-full flex justify-start text-red-500 px-8 font-semibold">{errMsg}</div>}
 
       </div>
@@ -138,4 +118,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;
