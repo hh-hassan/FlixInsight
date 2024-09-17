@@ -1,32 +1,74 @@
 import { useState } from "react";
+import EnlargedMovieCard from "./EnlargedMovieCard";
 import { BASE_URL } from "../utils/constants";
 
 const MovieCard = ({movie}) => {
 
-    const { id, title, overview, backdrop_path, poster_path, vote_average} = movie;
+
+    //     // hoverTimeout = setTimeout(() => {
+            
+            
+    //     // }, 500);
+    //     setHoveredMovieId(movie.id);
+
+    //     // const boundingRect = event.currentTarget.getBoundingClientRect();
+            
+    //     // const windowWidth = window.innerWidth;
+
+    //     // if (boundingRect.right > windowWidth - 50) setPositionStyle({right: 0})
+
+    //     // else if (boundingRect.left < 50) setPositionStyle({left: 0})
+
+    //     // else setPositionStyle({transform: 'translateX(-25%)'})
+
+    //     const { clientX, clientY } = event;
+
+    //     // const offsetX = 10; // Offset from cursor
+    //     // const offsetY = 10; // Offset from cursor
+
+    //     if (clientX < 200) setPositionStyle({left: 0})
+
+    //     else if (clientX > 1000) setPositionStyle({right: 0})
+
+    //     else setPositionStyle({left: `${clientX - 70}px`})
+        
+    //     // console.log(clientX, clientY, "HASSAN");
+
+    //     // setPositionStyle({
+    //     //     // left: `${clientX + offsetX}px`,
+    //     //     // top: `${clientY + offsetY}px`,
+    //     //     left: `${clientX}px`,
+    //     //     top:"0px",
+    //     // });
+    // };
+
+    // // console.log(hoveredMovieId);
+    // // console.log(movie);
+
+    // const handleMouseLeave = () => {
+    //     // clearTimeout(hoverTimeout);
+    //     setHoveredMovieId(null);
+    //     setPositionStyle({});
+    // };
     
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
         
-        <div 
-            className="inline-block m-2 text-white" 
-            key={movie.id}
-            onMouseEnter={(e) => handleMouseEnter(movie.id, e)}
-            onMouseLeave={handleMouseLeave}
+        <div className={"relative inline-block m-2 text-white cursor-pointer"} 
+            onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
         >
 
-            <img className="relative h-56 w-48 rounded" src={BASE_URL + movie.poster_path} alt=""></img>
+            <img 
+                className={`h-56 w-48 transition-transform duration-1000 ease-in-out ${isHovered ? 'w-[350px] h-[360px]' : 'scale-100'} rounded`}
+                src={BASE_URL + movie.poster_path} 
+                alt=""
+            >    
+            </img>
 
-            {hoveredMovieId === movie.id && (
-                <div className="absolute top-0 w-[350px] h-[360px] bg-gray-300 border-2 border-red-500 z-30" style={positionStyle}>
-                    <h1>HASSAN</h1>
-                    <h1>HASSAN</h1>
-                    <h1>HASSAN</h1>
-                    <h1>HASSAN</h1>
-                </div>
-            )}
+            {isHovered && <EnlargedMovieCard movie={movie}/>}
 
         </div>
-        
   )
 }
 

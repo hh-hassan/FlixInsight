@@ -1,65 +1,29 @@
 import { useState } from "react";
-
-import { BASE_URL } from "../utils/constants";
+import MovieCard from "./MovieCard";
+import UserContext from "../utils/UserContext";
 
 const MovieContainer = ({title, movies}) => {
-  
+
     const [hoveredMovieId, setHoveredMovieId] = useState(null);
     const [positionStyle, setPositionStyle] = useState({});
-
-    const handleMouseEnter = (movieId, event) => {
-        
-        setHoveredMovieId(movieId);
-
-        const boundingRect = event.currentTarget.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-
-        if (boundingRect.right > windowWidth - 50) setPositionStyle({right: 0})
-
-        else if (boundingRect.left < 50) setPositionStyle({left: 0})
-
-        else setPositionStyle({transform: 'translateX(-25%)'})
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredMovieId(null);
-        setPositionStyle({});
-    };
-
+    
     return (
         
-        <div className="relative m-3">
+        <UserContext.Provider value={{ hoveredMovieId, setHoveredMovieId, positionStyle, setPositionStyle }}>
             
-            <div className="text-2xl font-bold text-white">{title}</div>
-
-            <div className="my-2 overflow-x-auto scroll-smooth whitespace-nowrap no-scrollbar">
+            <div className="relative m-5">
                 
-                {movies?.map(movie => 
+                <div className="text-2xl font-bold text-white">{title}</div>
+
+                <div className="my-2 overflow-x-auto scroll-smooth whitespace-nowrap no-scrollbar">
                     
-                    <div 
-                        className="inline-block m-2 text-white" 
-                        key={movie.id}
-                        onMouseEnter={(e) => handleMouseEnter(movie.id, e)}
-                        onMouseLeave={handleMouseLeave}
-                    >
+                    {movies?.map(movie => <MovieCard key={movie.id} movie={movie}/>)}
 
-                        <img className="relative h-56 w-48 rounded" src={BASE_URL + movie.poster_path} alt=""></img>
+                </div>
 
-                        {hoveredMovieId === movie.id && (
-                            <div className="absolute top-0 w-[350px] h-[360px] bg-gray-300 border-2 border-red-500 z-30" style={positionStyle}>
-                                <h1>HASSAN</h1>
-                                <h1>HASSAN</h1>
-                                <h1>HASSAN</h1>
-                                <h1>HASSAN</h1>
-                            </div>
-                        )}
-
-                    </div>
-                )}
-                
             </div>
 
-        </div>
+        </UserContext.Provider>
   )
 }
 

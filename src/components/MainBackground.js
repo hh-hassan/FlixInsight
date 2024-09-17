@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { API_OPTIONS } from "../utils/constants";
 
 const MainBackground = () => {
   
@@ -8,20 +7,11 @@ const MainBackground = () => {
 
     const [videoKey, setVideoKey] = useState(null);
 
-    useEffect(()=> {
-      
+    useEffect(() => {
       if(!movie) return;
 
-      const getVideo = async () => {
-        const data = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos`, API_OPTIONS);
-        const json = await data.json();
-        const trailer = json.results.filter(video => video.name === "Official Trailer");
-        setVideoKey(trailer[0].key);
-      }
-
-      getVideo();
-
-    }, [movie]);
+      setVideoKey(movie[0].trailerKey);
+    }, [movie])
 
     if(!movie) return null;
 
