@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { LOGO_URL, SEARCH_PATH, NOTIF_PATH, EMOJI_ICON, MANAGE_ICON, TRANSFER_ICON, ACCOUNT_ICON, HELP_ICON } from '../utils/constants';
+import { LOGO_URL, SEARCH_PATH, NOTIF_PATH, EMOJI_ICON, MANAGE_PATH, TRANSFER_PATH, ACCOUNT_PATH, HELP_PATH } from '../utils/constants';
 
 const BrowseHeader = () => {
   
@@ -55,7 +55,7 @@ const BrowseHeader = () => {
 
             </div>
             
-            <div className="flex justify-between m-3">
+            <div className="flex items-center justify-between m-3">
 
                 <svg
                     viewBox="0 0 24 24"
@@ -106,33 +106,69 @@ const BrowseHeader = () => {
 
                             <div className="absolute right-7 top-0 text-sm text-white">&#9650;</div>
 
-                            <div className=" bg-black bg-opacity-80 mt-2 p-5">
+                            <div className=" bg-black bg-opacity-80 mt-2 p-2">
 
                                 <div className="border-b border-gray-500">
 
-                                    <div className="flex m-2 cursor-pointer hover:underline">
-                                        <img className="w-6 h-6 m-1 rounded-sm" src={MANAGE_ICON} alt=""></img>
-                                        <div className="m-1">Manage Profiles</div>
+                                    <div className="flex m-4 cursor-pointer hover:underline">
+
+                                        <svg width="24" height="24">
+                                            <path 
+                                                fillRule="evenodd" 
+                                                clipRule="evenodd" 
+                                                d={MANAGE_PATH} 
+                                                fill="rgb(155, 155, 155)"
+                                            />
+                                        </svg>
+
+                                        <div className="mx-2">Manage Profiles</div>
                                     </div>
 
-                                    <div className="flex m-2 cursor-pointer hover:underline">
-                                        <img className="w-6 h-6 m-1 rounded-sm" src={TRANSFER_ICON} alt=""></img>
-                                        <div className="m-1">Transfer Profile</div>
+                                    <div className="flex m-4 cursor-pointer hover:underline">
+                                        
+                                        <svg width="24" height="24">
+                                            <path 
+                                                fillRule="evenodd" 
+                                                clipRule="evenodd" 
+                                                d={TRANSFER_PATH} 
+                                                fill="rgb(155, 155, 155)"
+                                            />
+                                        </svg>
+
+                                        <div className="mx-2">Transfer Profile</div>
                                     </div>
 
-                                    <div className="flex m-2 cursor-pointer hover:underline">
-                                        <img className="w-6 h-6 m-1 rounded-full" src={ACCOUNT_ICON} alt=""></img>
-                                        <div className="m-1">Account</div>
+                                    <div className="flex m-4 cursor-pointer hover:underline">
+                                        
+                                        <svg width="24" height="24">
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d={ACCOUNT_PATH}
+                                                fill="rgb(155, 155, 155)"
+                                            />
+                                        </svg>
+
+                                        <div className="mx-2">Account</div>
                                     </div>
 
-                                    <div className="flex m-2 cursor-pointer hover:underline">
-                                        <img className="w-6 h-6 m-1 rounded-full" src={HELP_ICON} alt=""></img>
-                                        <div className="m-1">Help Centre</div>
+                                    <div className="flex m-4 cursor-pointer hover:underline">
+                                        
+                                        <svg width="24" height="24">
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d={HELP_PATH}
+                                                fill="rgb(155, 155, 155)"
+                                            />
+                                        </svg>
+
+                                        <div className="mx-2">Help Centre</div>
                                     </div>
 
                                 </div>
 
-                                <div className="mx-3 mt-3 cursor-pointer hover:underline" onClick={handleSignOut}>Sign out of Netflix</div>
+                                <div className="mx-5 mt-3 cursor-pointer hover:underline" onClick={handleSignOut}>Sign out of Netflix</div>
 
                             </div>
 
