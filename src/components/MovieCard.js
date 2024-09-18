@@ -4,60 +4,26 @@ import { BASE_URL } from "../utils/constants";
 
 const MovieCard = ({movie}) => {
 
-
-    //     // hoverTimeout = setTimeout(() => {
-            
-            
-    //     // }, 500);
-    //     setHoveredMovieId(movie.id);
-
-    //     // const boundingRect = event.currentTarget.getBoundingClientRect();
-            
-    //     // const windowWidth = window.innerWidth;
-
-    //     // if (boundingRect.right > windowWidth - 50) setPositionStyle({right: 0})
-
-    //     // else if (boundingRect.left < 50) setPositionStyle({left: 0})
-
-    //     // else setPositionStyle({transform: 'translateX(-25%)'})
-
-    //     const { clientX, clientY } = event;
-
-    //     // const offsetX = 10; // Offset from cursor
-    //     // const offsetY = 10; // Offset from cursor
-
-    //     if (clientX < 200) setPositionStyle({left: 0})
-
-    //     else if (clientX > 1000) setPositionStyle({right: 0})
-
-    //     else setPositionStyle({left: `${clientX - 70}px`})
-        
-    //     // console.log(clientX, clientY, "HASSAN");
-
-    //     // setPositionStyle({
-    //     //     // left: `${clientX + offsetX}px`,
-    //     //     // top: `${clientY + offsetY}px`,
-    //     //     left: `${clientX}px`,
-    //     //     top:"0px",
-    //     // });
-    // };
-
-    // // console.log(hoveredMovieId);
-    // // console.log(movie);
-
-    // const handleMouseLeave = () => {
-    //     // clearTimeout(hoverTimeout);
-    //     setHoveredMovieId(null);
-    //     setPositionStyle({});
-    // };
-    
     const [isHovered, setIsHovered] = useState(false);
+    const [hoverTimeout, setHoverTimeout] = useState(null);
+
+    const handleMouseEnter = () => {
+
+        const timeout = setTimeout(() => {
+            setIsHovered(true);
+        }, 2000);
+
+        setHoverTimeout(timeout);
+    };
+
+    const handleMouseLeave = () => {
+        clearTimeout(hoverTimeout);
+        setIsHovered(false);
+    };
 
     return (
         
-        <div className={"relative inline-block m-2 text-white cursor-pointer"} 
-            onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className={`relative inline-block m-2 text-white cursor-pointer`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
             <img 
                 className={`h-56 w-48 transition-transform duration-1000 ease-in-out ${isHovered ? 'w-[350px] h-[360px]' : 'scale-100'} rounded`}
@@ -66,7 +32,7 @@ const MovieCard = ({movie}) => {
             >    
             </img>
 
-            {isHovered && <EnlargedMovieCard movie={movie}/>}
+            {isHovered && <EnlargedMovieCard movie={movie} />}
 
         </div>
   )

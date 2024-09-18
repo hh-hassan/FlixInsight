@@ -4,7 +4,7 @@ import MovieContainer from "./MovieContainer";
 const MovieSection = () => {
   
   const movieStore = useSelector(store => store.movie);
-  
+
   return (
       
       <div>
