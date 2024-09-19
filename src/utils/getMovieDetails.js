@@ -7,8 +7,6 @@ const getMovieDetails = async (movieId) => {
     const data = await fetch(DETAILS_URL, API_OPTIONS);
     const json = await data?.json();
 
-    console.log(json);
-
     const { runtime, genres, images, videos, credits, similar, recommendations } = json;
 
     const trailer = videos?.results?.filter(video => video?.name === "Official Trailer");

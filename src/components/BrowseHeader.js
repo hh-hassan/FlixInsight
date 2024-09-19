@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth";
+import UserContext from '../utils/UserContext';
 import { auth } from '../utils/firebase';
 import { LOGO_URL, SEARCH_PATH, NOTIF_PATH, EMOJI_ICON, MANAGE_PATH, TRANSFER_PATH, ACCOUNT_PATH, HELP_PATH } from '../utils/constants';
 
@@ -8,19 +9,17 @@ const BrowseHeader = () => {
   
     const navigate = useNavigate();
 
+    const { isBingeBaba, setIsBingeBaba } = useContext(UserContext);
+
     const [showOptions, setShowOptions] = useState(false);
 
     const handleSignOut = () => {
         
         signOut(auth)
 
-            .then(() => {
-                console.log("Sign-out successful.");
-            })
+            .then(() => {})
 
-            .catch((error) => {
-                console.log("An error happened.");
-            });
+            .catch((error) => {});
     };
     
     return (
@@ -39,7 +38,7 @@ const BrowseHeader = () => {
 
                 <div className="flex justify-between m-3">
 
-                    <div className="mx-2 cursor-pointer" onClick={() => navigate('/browse')}>Home</div>
+                    <div className="mx-2 cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>Home</div>
 
                     <div className="mx-2 cursor-pointer">TV Shows</div>
 
@@ -70,7 +69,7 @@ const BrowseHeader = () => {
                     />
                 </svg>
 
-                <div className="mx-3 cursor-pointer">Children</div>
+                <div className="flex items-center bg-purple-800 hover:bg-purple-900 mx-3 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>Binge Baba</div>
 
                 <svg
                     viewBox="0 0 24 24"
