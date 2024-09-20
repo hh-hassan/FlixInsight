@@ -1,35 +1,57 @@
 import { useState, useRef } from "react";
-import client from "../utils/openai";
-import { FaLightbulb } from 'react-icons/fa';
-
-import { useSelector } from "react-redux";
 import MovieCard from "./MovieCard";
+import getMovieDetails from "../utils/getMovieDetails";
+import client from "../utils/openai";
+import { API_OPTIONS } from "../utils/constants";
+import { FaLightbulb } from 'react-icons/fa';
 
 const BingeBaba = () => {
   
     const searchText = useRef(null);
 
-    const [show, setShow] = useState(false);
-    const movies = useSelector(store => store.movie.nowPlayingMovies);
+    const [movies, setMovies] = useState(null);
+
+    const getDetails = async (movie) => {
+        
+        const data = await fetch(`https://api.themoviedb.org/3/search/movie?query=${movie}&include_adult=true`, API_OPTIONS);
+        const json = await data.json();
+
+        const matchingResults = json?.results.filter(m => 
+            m.title.toLowerCase() === movie.toLowerCase() && m.poster_path !== null
+          );
+        
+        const moviesWithDetails = await Promise.all(matchingResults.map(async (m) => {
+            const movieDetails = await getMovieDetails(m.id);
+            return { ...m, ...movieDetails };
+        }));
+
+        return moviesWithDetails;
+    }
 
     const handleSearch = () => {
 
-        // async function main() {
-        //     const chatCompletion = await client.chat.completions.create({
-        //       messages: [{ role: 'user', content: searchText.current.value }],
-        //       model: 'gpt-3.5-turbo',
-        //     });
-        //     console.log(chatCompletion?.choices);
-        //   }
-          
-        // main();
+        async function main() {
+            
+            const query = `Act as a movie recommendation system and based on the following mood or preferences: ${searchText.current.value}, recommend a list of exactly 10 complete movie names sorted by user reviews from high to low and separated by commas. Please provide exactly the movie title only, without any additional text or descriptions, and ensure the list only contains the 10 movie names separated by commas.`;
+            
+            const chatCompletion = await client.chat.completions.create({
+              messages: [{ role: 'user', content: query }],
+              model: 'gpt-3.5-turbo',
+            });
+           
+            const movieArray = chatCompletion?.choices?.[0].message.content.split(',').map(movie => movie.trim());
 
-        setShow(!show);
+            const results = await Promise.all(movieArray.map(m => getDetails(m)));
+
+            setMovies(results.flat());
+        }
+          
+        main();
     };
   
     return (
     
-        <div className={`mx-5 ${show ? 'my-20' : 'my-40'}`}>
+        <div className={`mx-5 ${movies ? 'my-20' : 'my-40'}`}>
             
             <div className="flex w-[575px] mx-auto bg-white px-3 py-1 rounded-md border-4 border-yellow-500">
                 
@@ -47,7 +69,7 @@ const BingeBaba = () => {
 
             </div>
 
-            {show &&
+            {movies &&
                 
                 (
                     <div className="grid grid-cols-5 gap-10 my-10 justify-center relative">
@@ -61,7 +83,7 @@ const BingeBaba = () => {
                                 <div
                                     key={movie.id}
                                     style={{ transition: 'transform 2000ms, width 2000ms',}}
-                                    className={`transform transition-all duration-300 relative hover:w-[350px] hover:h-[360px] hover:z-10 ${isLastInRow ? 'hover:-translate-x-36' : ''} `}
+                                    className={`transform transition-all duration-300 relative hover:w-[350px] hover:h-[360px] hover:z-10 ${isLastInRow ? 'hover:-translate-x-32' : ''} `}
                                 >
                                     <MovieCard movie={movie} />
                                 </div>
