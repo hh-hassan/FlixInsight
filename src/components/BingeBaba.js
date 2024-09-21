@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import MovieCard from "./MovieCard";
 import getMovieDetails from "../utils/getMovieDetails";
 import client from "../utils/openai";
@@ -7,6 +8,10 @@ import { FaLightbulb } from 'react-icons/fa';
 
 const BingeBaba = () => {
   
+    const { t } = useTranslation();
+    
+    const { placeholder } = t("bingebaba")
+    
     const searchText = useRef(null);
 
     const [movies, setMovies] = useState(null);
@@ -59,7 +64,7 @@ const BingeBaba = () => {
                     className="w-[500px] text-lg font-semibold focus:outline-none caret-red-500 placeholder-gray-500 placeholder:text-base"
                     ref={searchText}
                     type="text"
-                    placeholder="What’s your binge mood today ?"
+                    placeholder={placeholder}
                 >   
                 </input>
 

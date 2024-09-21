@@ -1,11 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import translateText from "../utils/tranlateText";
 import EnlargedMovieCard from "./EnlargedMovieCard";
 import { BASE_URL } from "../utils/constants";
 
 const MovieCard = ({movie}) => {
 
+    const { i18n, t } = useTranslation();
+    const { genres } = movie;
+    const [translatedGenres, setTranslatedGenres]= useState(genres);
+
     const [isHovered, setIsHovered] = useState(false);
     const [hoverTimeout, setHoverTimeout] = useState(null);
+
+    useEffect(() => {
+        
+        const translateGenres = async () => {
+
+            const translatedGenresArray = await Promise.all(
+                
+                genres.map(async (g) => {
+    
+                    const translatedGenre = await translateText(g.name, i18n.language);
+
+                    const genreString = t('browse.genre', { g: translatedGenre });
+
+                    return {
+                        id: g.id,
+                        name: genreString
+                    };
+                })
+            );
+
+            setTranslatedGenres(translatedGenresArray);
+        };
+
+        translateGenres();
+
+    }, [i18n.language]);
 
     const handleMouseEnter = () => {
 
@@ -32,7 +64,7 @@ const MovieCard = ({movie}) => {
             >    
             </img>
 
-            {isHovered && <EnlargedMovieCard movie={movie} />}
+            {isHovered && <EnlargedMovieCard movie={{ ...movie, genres: translatedGenres }} />}
 
         </div>
   )

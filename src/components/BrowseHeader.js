@@ -1,14 +1,18 @@
 import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { signOut } from "firebase/auth";
 import UserContext from '../utils/UserContext';
 import { auth } from '../utils/firebase';
 import { LOGO_URL, SEARCH_PATH, NOTIF_PATH, EMOJI_ICON, MANAGE_PATH, TRANSFER_PATH, ACCOUNT_PATH, HELP_PATH } from '../utils/constants';
+import LanguageSelector from './LanguageSelector';
 
 const BrowseHeader = () => {
-  
-    const navigate = useNavigate();
 
+    const { t } = useTranslation();
+    
+    const { home, tvshows, movies, newandpopular, mylist, browsebylanguages, bingebaba, manage, transfer, account, help, signout } = t("browseheader")
+    
     const { isBingeBaba, setIsBingeBaba } = useContext(UserContext);
 
     const [showOptions, setShowOptions] = useState(false);
@@ -38,24 +42,26 @@ const BrowseHeader = () => {
 
                 <div className="flex justify-between m-3">
 
-                    <div className="mx-2 cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>Home</div>
+                    <div className="mx-2 cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{home}</div>
 
-                    <div className="mx-2 cursor-pointer">TV Shows</div>
+                    <div className="mx-2 cursor-pointer">{tvshows}</div>
 
-                    <div className="mx-2 cursor-pointer">Movies</div>
+                    <div className="mx-2 cursor-pointer">{movies}</div>
 
-                    <div className="mx-2 cursor-pointer">New & Popular</div>
+                    <div className="mx-2 cursor-pointer">{newandpopular}</div>
 
-                    <div className="mx-2 cursor-pointer">My list</div>
+                    <div className="mx-2 cursor-pointer">{mylist}</div>
 
-                    <div className="mx-2 cursor-pointer">Browse by Languages</div>
+                    <div className="mx-2 cursor-pointer">{browsebylanguages}</div>
 
                 </div>
 
             </div>
-            
+
             <div className="flex items-center justify-between m-3">
 
+                <LanguageSelector/>
+                
                 <svg
                     viewBox="0 0 24 24"
                     width="24"
@@ -69,7 +75,7 @@ const BrowseHeader = () => {
                     />
                 </svg>
 
-                <div className="flex items-center bg-purple-800 hover:bg-purple-900 mx-3 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>Binge Baba</div>
+                <div className="flex items-center bg-purple-800 hover:bg-purple-900 mx-3 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{bingebaba}</div>
 
                 <svg
                     viewBox="0 0 24 24"
@@ -120,7 +126,7 @@ const BrowseHeader = () => {
                                             />
                                         </svg>
 
-                                        <div className="mx-2">Manage Profiles</div>
+                                        <div className="mx-2">{manage}</div>
                                     </div>
 
                                     <div className="flex m-4 cursor-pointer hover:underline">
@@ -134,7 +140,7 @@ const BrowseHeader = () => {
                                             />
                                         </svg>
 
-                                        <div className="mx-2">Transfer Profile</div>
+                                        <div className="mx-2">{transfer}</div>
                                     </div>
 
                                     <div className="flex m-4 cursor-pointer hover:underline">
@@ -148,7 +154,7 @@ const BrowseHeader = () => {
                                             />
                                         </svg>
 
-                                        <div className="mx-2">Account</div>
+                                        <div className="mx-2">{account}</div>
                                     </div>
 
                                     <div className="flex m-4 cursor-pointer hover:underline">
@@ -162,12 +168,12 @@ const BrowseHeader = () => {
                                             />
                                         </svg>
 
-                                        <div className="mx-2">Help Centre</div>
+                                        <div className="mx-2">{help}</div>
                                     </div>
 
                                 </div>
 
-                                <div className="mx-5 mt-3 cursor-pointer hover:underline" onClick={handleSignOut}>Sign out of Netflix</div>
+                                <div className="mx-5 mt-3 cursor-pointer hover:underline" onClick={handleSignOut}>{signout}</div>
 
                             </div>
 

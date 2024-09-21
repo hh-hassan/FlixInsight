@@ -1,21 +1,42 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import translateText from "../utils/tranlateText";
 
 const MainBackground = () => {
   
+    const { i18n, t } = useTranslation();
+    
+    const { play, info } = t("browse");
+
     const movie = useSelector(store => store.movie?.nowPlayingMovies);
 
     const [videoKey, setVideoKey] = useState(null);
+    const [overview, setOverview] = useState(null);
 
     useEffect(() => {
+      
       if(!movie) return;
 
+      setOverview(movie[0].overview);
       setVideoKey(movie[0].trailerKey);
-    }, [movie])
+      
+      const translateOverview = async () => {
+        
+        const translatedOverview = await translateText(movie[0].overview, i18n.language);
+
+        const overviewWithInterpolation = t('browse.overview', { o: translatedOverview });
+
+        setOverview(overviewWithInterpolation);
+      };
+
+      translateOverview();
+
+    }, [movie, i18n.language]);
 
     if(!movie) return null;
 
-    const { id, title, overview, backdrop_path, poster_path, vote_average} = movie[0];
+    const { title } = movie[0];
 
     return (
       
@@ -33,13 +54,13 @@ const MainBackground = () => {
 
               <button className="flex items-center bg-white m-2 px-7 py-1.5 text-black rounded hover:bg-opacity-30">
                 <span className="mr-2 text-2xl">&#9654;</span>
-                <span>Play</span>
+                <span>{play}</span>
               </button>
 
               <button className="flex items-center justify-between bg-gray-700 bg-opacity-50 m-2 px-3 py-1.5 text-white rounded hover:bg-opacity-30">
                 
                 <span className="flex items-center justify-center mx-1 w-7 h-7  text-white text-xl font-bold border-2 border-white rounded-full">i</span>
-                <span className="mx-1">More info</span>
+                <span className="mx-1">{info}</span>
 
               </button>
             
@@ -67,7 +88,7 @@ const MainBackground = () => {
         }
 
       </div>
-  )
+  );
 }
 
 export default MainBackground;
