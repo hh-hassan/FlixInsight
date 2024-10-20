@@ -23,8 +23,8 @@ const LanguageSelector = () => {
         <div className="relative flex items-center justify-between w-36 hover:opacity-75">
 
             <svg 
-                className="absolute left-1 h-7 w-7 fill-gray-500 pointer-events-none" 
-                viewBox="0 0 24 24" 
+                className="absolute left-1 h-[26px] w-[26px] fill-green-700 pointer-events-none bg-yellow-400" 
+                viewBox="0 0 24 24"
             >
                 <path d={GLOBAL_ICON_PATH}></path>
             </svg>
@@ -32,8 +32,8 @@ const LanguageSelector = () => {
             <select
                 value={i18n.language}
                 onChange={e => changeLanguage(e.target.value)}
-                className="w-full pl-10 py-[6px] text-gray-700 font-semibold rounded-md appearance-none focus:outline-none cursor-pointer"
-                disabled={loading}
+                className="w-full pl-10 py-[4px] bg-yellow-400 text-gray-700 font-semibold rounded-md appearance-none focus:outline-none cursor-pointer"
+                // disabled={loading}
             >
                 {languages.map((lng) => (
                     <option
@@ -46,7 +46,7 @@ const LanguageSelector = () => {
                 ))}
             </select>
             
-            <span className="absolute right-2 text-black pointer-events-none">&#9660;</span>
+            <span className="absolute right-2 bg-yellow-400 text-black pointer-events-none">&#9660;</span>
             
         </div>
 
