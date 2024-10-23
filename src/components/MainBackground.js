@@ -42,9 +42,9 @@ const MainBackground = () => {
       
       <div>
 
-        <div className="absolute w-screen h-auto md:h-screen bg-gradient-to-t from-black z-20">
+        <div className="absolute w-screen md:h-screen bg-gradient-to-t from-black z-20">
 
-          <div className="absolute top-48 left-4 md:top-52 md:left-10 w-2/3 md:w-1/3 text-white z-30">
+          <div className="absolute top-[23vh] left-[5vw] md:top-52 md:left-10 w-2/3 md:w-1/3 text-white z-30">
             
             <div className="m-2 text-xl md:text-2xl font-bold">{title}</div>
             
