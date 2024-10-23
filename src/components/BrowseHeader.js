@@ -28,19 +28,20 @@ const BrowseHeader = () => {
     
     return (
 
-        <div className="absolute flex justify-between w-screen px-10 py-2 text-white bg-gradient-to-b from-black z-30">
+        <div className="absolute flex flex-col md:flex-row justify-between w-screen p-0 md:px-10 md:py-2 text-white bg-gradient-to-b from-black z-30">
         
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-col md:flex-row">
                 
                 <Link to='/browse'>
                     <img
-                        className="w-[125px] h-auto fill-[#e50914] cursor-pointer"
+                        className="m-auto md:m-0 w-[125px] h-auto fill-[#e50914] cursor-pointer"
+                        style={{ left: '5%' }}
                         src={LOGO_URL}
                         alt="">
                     </img>
                 </Link>
 
-                <div className="flex justify-between m-3">
+                <div className="text-base flex justify-between ml-4 my-1 md:m-3">
 
                     <div className="mx-2 cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{home}</div>
 
@@ -58,7 +59,7 @@ const BrowseHeader = () => {
 
             </div>
 
-            <div className="flex items-center justify-between m-3">
+            <div className="flex items-center justify-between text-sm md:text-base m-3">
 
                 <LanguageSelector/>
                 
@@ -75,7 +76,7 @@ const BrowseHeader = () => {
                     />
                 </svg>
 
-                <div className="flex items-center bg-purple-800 hover:bg-purple-900 mx-3 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{bingebaba}</div>
+                <div className="flex items-center bg-purple-800 hover:bg-purple-900 mx-3 w-28 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{bingebaba}</div>
 
                 <svg
                     viewBox="0 0 24 24"
@@ -107,7 +108,7 @@ const BrowseHeader = () => {
                     
                     { showOptions && (
                         
-                        <div className="absolute top-12 right-16 py-3">
+                        <div className="absolute top-36 right-[12px] md:top-12 md:right-16 py-3">
 
                             <div className="absolute right-7 top-0 text-sm text-white">&#9650;</div>
 

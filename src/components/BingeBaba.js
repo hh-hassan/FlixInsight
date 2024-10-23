@@ -56,9 +56,9 @@ const BingeBaba = () => {
   
     return (
     
-        <div className={`mx-5 ${movies ? 'my-20' : 'my-40'}`}>
+        <div className={`mx-5 ${movies ? 'my-40 md:my-20' : 'my-80 md:my-40'}`}>
             
-            <div className="flex w-[575px] mx-auto bg-white px-3 py-1 rounded-md border-4 border-yellow-500">
+            <div className="flex w-[90vw] md:w-[575px] mx-auto bg-white px-3 py-1 rounded-md border-4 border-yellow-500">
                 
                 <input 
                     className="w-[500px] text-lg font-semibold focus:outline-none caret-red-500 placeholder-gray-500 placeholder:text-base"
@@ -77,18 +77,19 @@ const BingeBaba = () => {
             {movies &&
                 
                 (
-                    <div className="grid grid-cols-5 gap-10 my-10 justify-center relative">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-10 my-10 justify-center relative">
                         
                         {movies?.map((movie, index) => {
                             
-                            const isLastInRow = (index + 1) % 5 === 0;
+                            const isLastInSSRow = (index + 1) % 2 === 0
+                            const isLastInBSRow = (index + 1) % 5 === 0;
                             
                             return (
                                 
                                 <div
                                     key={movie.id}
                                     style={{ transition: 'transform 2000ms, width 2000ms',}}
-                                    className={`transform transition-all duration-300 relative hover:w-[350px] hover:h-[360px] hover:z-10 ${isLastInRow ? 'hover:-translate-x-32' : ''} `}
+                                    className={`transform transition-all duration-300 relative hover:w-[350px] hover:h-[360px] hover:z-10 ${isLastInSSRow ? 'hover:-translate-x-44' : ''} md:${isLastInBSRow ? 'hover:-translate-x-32' : ''} `}
                                 >
                                     <MovieCard movie={movie} />
                                 </div>

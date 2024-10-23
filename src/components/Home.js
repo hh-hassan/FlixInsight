@@ -61,25 +61,27 @@ const Home = () => {
       <Authentication/>
       
       <img 
-        className="fixed top-0 left-0 w-screen h-screen object-cover -z-10 brightness-[30%]" 
+        className="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen object-cover -z-10 brightness-[30%]" 
         src={BG_IMG_URL} 
         alt="">
       </img>
+        
+        <Link to='/'>
+          <img
+              className="absolute left-[125px] top-[5px] w-[200px] h-auto fill-[#e50914] cursor-pointer"
+              style={{ left: '5%' }}
+              src={LOGO_URL}
+              alt="">
+          </img>
+        </Link>
 
-      <Link to='/'>
-        <img
-            className="absolute left-[125px] top-[5px] w-[200px] h-auto fill-[#e50914] cursor-pointer"
-            src={LOGO_URL}
-            alt="">
-        </img>
-      </Link>
-
-      <button
-        className="absolute right-[125px] m-7 px-4 py-1 text-white bg-red-500 hover:bg-red-700 font-semibold rounded-[3px] cursor-pointer"
-        onClick={() => navigate('/login')}>
-          Sign In
-      </button>
-
+        <button
+          className="absolute right-[125px] m-7 px-4 py-1 text-white bg-red-500 hover:bg-red-700 font-semibold rounded-[3px] cursor-pointer"
+          style={{ right: '5%' }}
+          onClick={() => navigate('/login')}>
+            Sign In
+        </button>
+      
       <div className="absolute bottom-5 flex flex-col items-center p-[10px] text-white">
 
         <div className="text-4xl font-bold m-4 p-4">Unlimited movies, TV shows and more...</div>
@@ -90,17 +92,17 @@ const Home = () => {
             : "Ready to watch? Enter your email to create or restart your membership."}
         </div>
 
-        <form onSubmit={(e) => e.preventDefault()} className="flex items-center">
+        <form onSubmit={(e) => e.preventDefault()} className="flex flex-col md:flex-row items-center">
 
           <input
             ref= {(em !==null)? password : email}
-            className="w-[400px] h-14  bg-transparent m-[10px] p-[15px] border border-[#acacac] rounded-[3px] caret-white text-white text-[15px] placeholder-[#bababa]"
+            className="w-[90vw] md:w-[400px] h-14 bg-transparent m-[10px] p-[15px] border border-[#acacac] rounded-[3px] caret-white text-white text-[15px] placeholder-[#bababa]"
             type={(em !==null)? "password" : "email"}
             placeholder={(em !==null)? "Enter your password" : "Email address"}>
           </input>
           
           <button 
-            className="flex items-center justify-center w-[250px] h-14 bg-red-500 hover:bg-red-700 m-[10px] text-2xl font-semibold rounded-[3px] cursor-pointer"
+            className="flex items-center justify-center w-[90vw] md:w-[250px] h-14 bg-red-500 hover:bg-red-700 m-[10px] text-2xl font-semibold rounded-[3px] cursor-pointer"
             onClick={em !== null ? handlePassword : handleEmail}
           >
               <span>{(em !==null)? "Next" : "Get started"}</span>

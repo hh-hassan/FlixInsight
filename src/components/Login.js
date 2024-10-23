@@ -58,12 +58,13 @@ const Login = () => {
             <Link to='/'>
                 <img
                     className="absolute left-[125px] top-[5px] w-[200px] h-auto fill-[#e50914] cursor-pointer"
+                    style={{ left: '5%' }}
                     src={LOGO_URL}
                     alt="">
                 </img>
             </Link>
 
-            <form onSubmit={(e) => e.preventDefault()} className="absolute bottom-[5px] flex flex-col items-center p-[10px] text-white bg-black/70">
+            <form onSubmit={(e) => e.preventDefault()} className="absolute bottom-[5px] m-24 md:m-0 flex flex-col items-center p-[10px] text-white bg-black/70">
 
                 <div className="w-full flex justify-start m-[10px] text-3xl font-bold">Sign In</div>
 

@@ -36,7 +36,7 @@ const Browse = () => {
               
               (<>
                 <MainBackground/>
-                <div className="absolute pt-screen z-20">
+                <div className="absolute pt-[100%] md:pt-screen z-20">
                   <MovieSection />
                   <Footer />
                 </div>
