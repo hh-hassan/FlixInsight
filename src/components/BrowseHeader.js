@@ -108,7 +108,7 @@ const BrowseHeader = () => {
                     
                     { showOptions && (
                         
-                        <div className="absolute top-36 right-[12px] md:top-12 md:right-16 py-3">
+                        <div className="absolute top-32 right-[12px] md:top-12 md:right-16 py-3">
 
                             <div className="absolute right-7 top-0 text-sm text-white">&#9650;</div>
 
