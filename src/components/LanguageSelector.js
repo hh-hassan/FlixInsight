@@ -23,7 +23,7 @@ const LanguageSelector = () => {
         <div className="relative flex items-center justify-between w-36 hover:opacity-75">
 
             <svg 
-                className="absolute left-1 h-[26px] w-[26px] fill-green-700 pointer-events-none bg-yellow-400" 
+                className="absolute left-1 h-5 w-5 md:h-[26px] md:w-[26px] fill-green-700 pointer-events-none bg-yellow-400" 
                 viewBox="0 0 24 24"
             >
                 <path d={GLOBAL_ICON_PATH}></path>

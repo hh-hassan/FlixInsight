@@ -43,7 +43,7 @@ const BrowseHeader = () => {
 
                 <div className="text-base flex justify-between ml-4 my-1 md:m-3">
 
-                    <div className="mx-2 cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{home}</div>
+                    <div className="mx-2 cursor-pointer" onClick={() => setIsBingeBaba(true)}>{home}</div>
 
                     <div className="mx-2 cursor-pointer">{tvshows}</div>
 
@@ -59,7 +59,7 @@ const BrowseHeader = () => {
 
             </div>
 
-            <div className="flex items-center justify-between text-sm md:text-base m-3">
+            <div className="flex items-center justify-between text-xs md:text-base m-3">
 
                 <LanguageSelector/>
                 
@@ -76,7 +76,7 @@ const BrowseHeader = () => {
                     />
                 </svg>
 
-                <div className="flex items-center bg-purple-800 hover:bg-purple-900 mx-3 w-28 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(!isBingeBaba)}>{bingebaba}</div>
+                <div className="flex items-center text-center bg-purple-800 hover:bg-purple-900 mx-3 w-24 px-2 py-1 rounded-md cursor-pointer" onClick={() => setIsBingeBaba(false)}>{bingebaba}</div>
 
                 <svg
                     viewBox="0 0 24 24"

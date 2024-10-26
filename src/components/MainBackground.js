@@ -42,26 +42,24 @@ const MainBackground = () => {
       
       <div>
 
-        <div className="absolute w-screen md:h-screen bg-gradient-to-t from-black z-20">
+        <div className="absolute w-screen h-screen bg-gradient-to-t from-black z-20">
 
-          <div className="absolute top-[23vh] left-[5vw] md:top-52 md:left-10 w-2/3 md:w-1/3 text-white z-30">
+          <div className="absolute top-[18.75%] left-[3vw] md:top-52 md:left-10 w-2/3 md:w-1/3 text-white z-30">
             
-            <div className="m-2 text-xl md:text-2xl font-bold">{title}</div>
+            <div className="m-2 mb-1 md:mb-2 text-base md:text-2xl font-bold">{title}</div>
             
-            <div className="m-2 text-sm md:text-base">{overview}</div>
+            <div className="m-2 mt-1 md:mt-2 text-sm md:text-base">{overview}</div>
             
-            <div className="flex text-lg md:text-xl font-bold">
+            <div className="flex font-bold">
 
               <button className="flex items-center bg-white m-2 px-2 md:px-7 py-0.5 md:py-1.5 text-black rounded hover:bg-opacity-30">
-                <span className="mr-2 text-2xl">&#9654;</span>
-                <span>{play}</span>
+                <span className="mr-2 text-sm md:text-2xl">&#9654;</span>
+                <span className="text-base md:text-xl">{play}</span>
               </button>
 
               <button className="flex items-center justify-between bg-gray-700 bg-opacity-50 m-2 px-1 md:px-3 py-0.5 md:py-1.5 text-white rounded hover:bg-opacity-30">
-                
-                <span className="flex items-center justify-center mx-1 w-7 h-7  text-white text-xl font-bold border-2 border-white rounded-full">i</span>
-                <span className="mx-1">{info}</span>
-
+                <span className="flex items-center justify-center mx-1 w-5 h-5 md:w-7 md:h-7 text-white text-sm md:text-xl font-bold border-2 border-white rounded-full">i</span>
+                <span className="mx-1 text-base md:text-xl">{info}</span>
               </button>
             
             </div>
@@ -73,10 +71,10 @@ const MainBackground = () => {
         {
           videoKey && 
 
-            <div className="absolute w-screen h-screen overflow-hidden">
+            <div className="absolute w-screen mt-32 md:mt-0 h-[400px] md:h-screen overflow-hidden">
 
               <iframe
-                className = "absolute w-[calc(100%+0px)] h-[calc(100%+40px)] transform scale-[1.3] translate-x-[-0px] translate-y-[-150px] md:translate-y-[-20px]  z-10" 
+                className = "absolute w-[calc(100%+0px)] h-[calc(100%+40px)] transform scale-[1.3] translate-x-[-0px] translate-y-[-25%] md:translate-y-[-20px]  z-10" 
                 src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&controls=0&mute=1&rel=0&modestbranding=1&fs=1&iv_load_policy=3&vq=hd1080`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -64,7 +64,7 @@ const Login = () => {
                 </img>
             </Link>
 
-            <form onSubmit={(e) => e.preventDefault()} className="absolute bottom-[5px] m-24 md:m-0 flex flex-col items-center p-[10px] text-white bg-black/70">
+            <form onSubmit={(e) => e.preventDefault()} className="absolute bottom-[5px] m-[10%] md:m-0 flex flex-col items-center p-[10px] text-white bg-black/70">
 
                 <div className="w-full flex justify-start m-[10px] text-3xl font-bold">Sign In</div>
 

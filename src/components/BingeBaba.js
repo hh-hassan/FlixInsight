@@ -5,6 +5,7 @@ import getMovieDetails from "../utils/getMovieDetails";
 import client from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { FaLightbulb } from 'react-icons/fa';
+import ReactLoading from 'react-loading';
 
 const BingeBaba = () => {
   
@@ -13,6 +14,8 @@ const BingeBaba = () => {
     const { placeholder } = t("bingebaba")
     
     const searchText = useRef(null);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [movies, setMovies] = useState(null);
 
@@ -35,6 +38,10 @@ const BingeBaba = () => {
 
     const handleSearch = () => {
 
+        setMovies(null);
+        
+        setIsLoading(true);
+        
         async function main() {
             
             const query = `Act as a movie recommendation system and based on the following mood or preferences: ${searchText.current.value}, recommend a list of exactly 10 complete movie names sorted by user reviews from high to low and separated by commas. Please provide exactly the movie title only, without any additional text or descriptions, and ensure the list only contains the 10 movie names separated by commas.`;
@@ -47,6 +54,8 @@ const BingeBaba = () => {
             const movieArray = chatCompletion?.choices?.[0].message.content.split(',').map(movie => movie.trim());
 
             const results = await Promise.all(movieArray.map(m => getDetails(m)));
+
+            setIsLoading(false);
 
             setMovies(results.flat());
         }
@@ -73,6 +82,8 @@ const BingeBaba = () => {
                 </div>
 
             </div>
+
+            {isLoading && (<div className="flex justify-center items-center m-20"><ReactLoading type="spin" color="red" height={100} width={100} /></div>)}
 
             {movies &&
                 
