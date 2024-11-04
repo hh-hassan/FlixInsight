@@ -13,10 +13,10 @@ const MovieSection = () => {
   return (
       
       <div>
-          <MovieContainer title={title1} movies={movieStore.nowPlayingMovies}/>
-          <MovieContainer title={title2} movies={movieStore.popularMovies}/>
-          <MovieContainer title={title3} movies={movieStore.topRatedMovies}/>
-          <MovieContainer title={title4} movies={movieStore.upcomingMovies}/>
+          <MovieContainer ind="0" title={title1} movies={movieStore.nowPlayingMovies}/>
+          <MovieContainer ind="1" title={title2} movies={movieStore.popularMovies}/>
+          <MovieContainer ind="2" title={title3} movies={movieStore.topRatedMovies}/>
+          <MovieContainer ind="3" title={title4} movies={movieStore.upcomingMovies}/>
       </div>
   )
 }

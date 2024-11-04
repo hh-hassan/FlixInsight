@@ -16,7 +16,7 @@ const MainBackground = () => {
 
     useEffect(() => {
       
-      if(!movie) return;
+      if(movie.length === 0) return;
 
       setOverview(movie[0].overview);
       setVideoKey(movie[0].trailerKey);
@@ -34,7 +34,7 @@ const MainBackground = () => {
 
     }, [movie, i18n.language]);
 
-    if(!movie) return null;
+    if(movie.length === 0) return null;
 
     const { title } = movie[0];
 
@@ -48,7 +48,7 @@ const MainBackground = () => {
             
             <div className="m-2 mb-1 md:mb-2 text-base md:text-2xl font-bold">{title}</div>
             
-            <div className="m-2 mt-1 md:mt-2 text-sm md:text-base">{overview}</div>
+            {overview && <div className="m-2 mt-1 md:mt-2 text-sm md:text-base">{overview.split(" ").length > 25? overview.split(" ").slice(0, 25).join(" ") + "..." : overview}</div>}
             
             <div className="flex font-bold">
 

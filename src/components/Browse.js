@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import UserContext from '../utils/UserContext';
 
 import Authentication from './Authentication';
@@ -17,10 +18,19 @@ const Browse = () => {
   
   const [isBingeBaba, setIsBingeBaba] = useState(true);
   
-  useNowPlayingMovies();
-  usePopularMovies();
-  useTopRatedMovies();
-  useUpcomingMovies();
+  const movieStore = useSelector(store => store.movie);
+  
+  const fetchNowPlayingMovies = useNowPlayingMovies();
+  const fetchPopularMovies = usePopularMovies();
+  const fetchTopRatedMovies = useTopRatedMovies();
+  const fetchUpcomingMovies = useUpcomingMovies();
+
+  useEffect(() => {
+    movieStore.nowPlayingMovies.length===0 && fetchNowPlayingMovies(1);
+    movieStore.popularMovies.length===0 && fetchPopularMovies(1);
+    movieStore.topRatedMovies.length===0 && fetchTopRatedMovies(1);
+    movieStore.upcomingMovies.length===0 && fetchUpcomingMovies(1);
+  }, []);
 
   return (
 
