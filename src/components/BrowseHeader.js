@@ -70,7 +70,7 @@ const BrowseHeader = () => {
                     className="mx-3 cursor-pointer"
                     >
                     <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d={SEARCH_PATH}
                         fill="currentColor"
                     />
